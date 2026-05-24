@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SapServicesIndexRouteImport } from './routes/sap-services.index'
+import { Route as SapServicesSlugRouteImport } from './routes/sap-services.$slug'
 
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
@@ -28,35 +30,64 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SapServicesIndexRoute = SapServicesIndexRouteImport.update({
+  id: '/sap-services/',
+  path: '/sap-services/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SapServicesSlugRoute = SapServicesSlugRouteImport.update({
+  id: '/sap-services/$slug',
+  path: '/sap-services/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/sap-services/$slug': typeof SapServicesSlugRoute
+  '/sap-services/': typeof SapServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/sap-services/$slug': typeof SapServicesSlugRoute
+  '/sap-services': typeof SapServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/sap-services/$slug': typeof SapServicesSlugRoute
+  '/sap-services/': typeof SapServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/sap-services/$slug'
+    | '/sap-services/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact'
-  id: '__root__' | '/' | '/about' | '/contact'
+  to: '/' | '/about' | '/contact' | '/sap-services/$slug' | '/sap-services'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/sap-services/$slug'
+    | '/sap-services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  SapServicesSlugRoute: typeof SapServicesSlugRoute
+  SapServicesIndexRoute: typeof SapServicesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +113,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sap-services/': {
+      id: '/sap-services/'
+      path: '/sap-services'
+      fullPath: '/sap-services/'
+      preLoaderRoute: typeof SapServicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sap-services/$slug': {
+      id: '/sap-services/$slug'
+      path: '/sap-services/$slug'
+      fullPath: '/sap-services/$slug'
+      preLoaderRoute: typeof SapServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,7 +134,19 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  SapServicesSlugRoute: SapServicesSlugRoute,
+  SapServicesIndexRoute: SapServicesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
