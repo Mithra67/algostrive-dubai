@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useParams } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/PageHero";
 import { ContactForm } from "@/components/site/ContactForm";
 import { getHub, getPage } from "@/content/site-content";
@@ -9,22 +9,24 @@ export const Route = createFileRoute("/sap-services/$slug")({
   loader: ({ params }) => {
     const page = getPage("sap-services", params.slug);
     if (!page) throw notFound();
-    return { page };
+    return { slug: page.slug, metaTitle: page.metaTitle, metaDescription: page.metaDescription };
   },
   head: ({ loaderData }) => ({
     meta: loaderData ? [
-      { title: loaderData.page.metaTitle },
-      { name: "description", content: loaderData.page.metaDescription },
-      { property: "og:title", content: loaderData.page.metaTitle },
-      { property: "og:description", content: loaderData.page.metaDescription },
+      { title: loaderData.metaTitle },
+      { name: "description", content: loaderData.metaDescription },
+      { property: "og:title", content: loaderData.metaTitle },
+      { property: "og:description", content: loaderData.metaDescription },
     ] : [],
   }),
   component: () => <SubPageView hubSlug="sap-services" />,
 });
 
 export function SubPageView({ hubSlug }: { hubSlug: string }) {
-  const { page } = Route.useLoaderData() as { page: ReturnType<typeof getPage> & {} };
-  const hub = getHub(hubSlug)!;
+  const { slug } = useParams({ strict: false }) as { slug: string };
+  const page = getPage(hubSlug, slug);
+  const hub = getHub(hubSlug);
+  if (!page || !hub) throw notFound();
   const Icon = page.icon;
 
   return (

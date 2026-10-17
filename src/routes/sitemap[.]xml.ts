@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { hubs } from "@/content/site-content";
 
-const BASE_URL = "";
+const BASE_URL = "https://emirates-web-wonder.lovable.app";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
