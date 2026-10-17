@@ -9,27 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SapTechnicalExpertiseIndexRouteImport } from './routes/sap-technical-expertise.index'
-import { Route as SapSolutionsIndexRouteImport } from './routes/sap-solutions.index'
-import { Route as SapServicesIndexRouteImport } from './routes/sap-services.index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SapIndustrySolutionsIndexRouteImport } from './routes/sap-industry-solutions.index'
-import { Route as SapTechnicalExpertiseSlugRouteImport } from './routes/sap-technical-expertise.$slug'
-import { Route as SapSolutionsSlugRouteImport } from './routes/sap-solutions.$slug'
-import { Route as SapServicesSlugRouteImport } from './routes/sap-services.$slug'
 import { Route as SapIndustrySolutionsSlugRouteImport } from './routes/sap-industry-solutions.$slug'
+import { Route as SapServicesIndexRouteImport } from './routes/sap-services.index'
+import { Route as SapServicesSlugRouteImport } from './routes/sap-services.$slug'
+import { Route as SapSolutionsIndexRouteImport } from './routes/sap-solutions.index'
+import { Route as SapSolutionsSlugRouteImport } from './routes/sap-solutions.$slug'
+import { Route as SapTechnicalExpertiseIndexRouteImport } from './routes/sap-technical-expertise.index'
+import { Route as SapTechnicalExpertiseSlugRouteImport } from './routes/sap-technical-expertise.$slug'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -37,25 +32,14 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SapTechnicalExpertiseIndexRoute =
-  SapTechnicalExpertiseIndexRouteImport.update({
-    id: '/sap-technical-expertise/',
-    path: '/sap-technical-expertise/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const SapSolutionsIndexRoute = SapSolutionsIndexRouteImport.update({
-  id: '/sap-solutions/',
-  path: '/sap-solutions/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SapServicesIndexRoute = SapServicesIndexRouteImport.update({
-  id: '/sap-services/',
-  path: '/sap-services/',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SapIndustrySolutionsIndexRoute =
@@ -64,15 +48,15 @@ const SapIndustrySolutionsIndexRoute =
     path: '/sap-industry-solutions/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const SapTechnicalExpertiseSlugRoute =
-  SapTechnicalExpertiseSlugRouteImport.update({
-    id: '/sap-technical-expertise/$slug',
-    path: '/sap-technical-expertise/$slug',
+const SapIndustrySolutionsSlugRoute =
+  SapIndustrySolutionsSlugRouteImport.update({
+    id: '/sap-industry-solutions/$slug',
+    path: '/sap-industry-solutions/$slug',
     getParentRoute: () => rootRouteImport,
   } as any)
-const SapSolutionsSlugRoute = SapSolutionsSlugRouteImport.update({
-  id: '/sap-solutions/$slug',
-  path: '/sap-solutions/$slug',
+const SapServicesIndexRoute = SapServicesIndexRouteImport.update({
+  id: '/sap-services/',
+  path: '/sap-services/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SapServicesSlugRoute = SapServicesSlugRouteImport.update({
@@ -80,10 +64,26 @@ const SapServicesSlugRoute = SapServicesSlugRouteImport.update({
   path: '/sap-services/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SapIndustrySolutionsSlugRoute =
-  SapIndustrySolutionsSlugRouteImport.update({
-    id: '/sap-industry-solutions/$slug',
-    path: '/sap-industry-solutions/$slug',
+const SapSolutionsIndexRoute = SapSolutionsIndexRouteImport.update({
+  id: '/sap-solutions/',
+  path: '/sap-solutions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SapSolutionsSlugRoute = SapSolutionsSlugRouteImport.update({
+  id: '/sap-solutions/$slug',
+  path: '/sap-solutions/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SapTechnicalExpertiseIndexRoute =
+  SapTechnicalExpertiseIndexRouteImport.update({
+    id: '/sap-technical-expertise/',
+    path: '/sap-technical-expertise/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SapTechnicalExpertiseSlugRoute =
+  SapTechnicalExpertiseSlugRouteImport.update({
+    id: '/sap-technical-expertise/$slug',
+    path: '/sap-technical-expertise/$slug',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -192,18 +192,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -213,32 +206,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sap-technical-expertise/': {
-      id: '/sap-technical-expertise/'
-      path: '/sap-technical-expertise'
-      fullPath: '/sap-technical-expertise/'
-      preLoaderRoute: typeof SapTechnicalExpertiseIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sap-solutions/': {
-      id: '/sap-solutions/'
-      path: '/sap-solutions'
-      fullPath: '/sap-solutions/'
-      preLoaderRoute: typeof SapSolutionsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sap-services/': {
-      id: '/sap-services/'
-      path: '/sap-services'
-      fullPath: '/sap-services/'
-      preLoaderRoute: typeof SapServicesIndexRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sap-industry-solutions/': {
@@ -248,18 +227,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SapIndustrySolutionsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sap-technical-expertise/$slug': {
-      id: '/sap-technical-expertise/$slug'
-      path: '/sap-technical-expertise/$slug'
-      fullPath: '/sap-technical-expertise/$slug'
-      preLoaderRoute: typeof SapTechnicalExpertiseSlugRouteImport
+    '/sap-industry-solutions/$slug': {
+      id: '/sap-industry-solutions/$slug'
+      path: '/sap-industry-solutions/$slug'
+      fullPath: '/sap-industry-solutions/$slug'
+      preLoaderRoute: typeof SapIndustrySolutionsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sap-solutions/$slug': {
-      id: '/sap-solutions/$slug'
-      path: '/sap-solutions/$slug'
-      fullPath: '/sap-solutions/$slug'
-      preLoaderRoute: typeof SapSolutionsSlugRouteImport
+    '/sap-services/': {
+      id: '/sap-services/'
+      path: '/sap-services'
+      fullPath: '/sap-services/'
+      preLoaderRoute: typeof SapServicesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sap-services/$slug': {
@@ -269,11 +248,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SapServicesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sap-industry-solutions/$slug': {
-      id: '/sap-industry-solutions/$slug'
-      path: '/sap-industry-solutions/$slug'
-      fullPath: '/sap-industry-solutions/$slug'
-      preLoaderRoute: typeof SapIndustrySolutionsSlugRouteImport
+    '/sap-solutions/': {
+      id: '/sap-solutions/'
+      path: '/sap-solutions'
+      fullPath: '/sap-solutions/'
+      preLoaderRoute: typeof SapSolutionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sap-solutions/$slug': {
+      id: '/sap-solutions/$slug'
+      path: '/sap-solutions/$slug'
+      fullPath: '/sap-solutions/$slug'
+      preLoaderRoute: typeof SapSolutionsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sap-technical-expertise/': {
+      id: '/sap-technical-expertise/'
+      path: '/sap-technical-expertise'
+      fullPath: '/sap-technical-expertise/'
+      preLoaderRoute: typeof SapTechnicalExpertiseIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sap-technical-expertise/$slug': {
+      id: '/sap-technical-expertise/$slug'
+      path: '/sap-technical-expertise/$slug'
+      fullPath: '/sap-technical-expertise/$slug'
+      preLoaderRoute: typeof SapTechnicalExpertiseSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
